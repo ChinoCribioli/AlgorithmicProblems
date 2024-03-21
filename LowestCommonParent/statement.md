@@ -1,6 +1,6 @@
 # Context
 
-This is my resolution to an algorithmic problem called Lowest Common Parent, which I had to solve in the context of an interview process. The problem setup consists of a tree and the task is to, given two nodes in the tree, efficiently compute their first common ancestor. This solution was implemented in C++ and took less than 2 hours.
+This is my resolution to an algorithmic problem called Lowest Common Parent (also known as Lowest Common Ancestor, or LCA), which I had to solve in the context of an interview process. The problem setup consists of a tree and the task is to, given two nodes in the tree, efficiently compute their first common ancestor. This solution was implemented in C++ and took less than 2 hours.
 
 # Challenge - FindParent
 
