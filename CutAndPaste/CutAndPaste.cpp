@@ -15,30 +15,31 @@ using NodePtr = Node *;
 struct Node {
 	int priority;
 	char c;
-	int lazySize;
+	int size;
 	NodePtr left, right;
 
-	Node(char c) : c{c} {
+	Node(char ch) {
+		c = ch;
 		priority = rand();
 		left = right = nullptr;
-		lazySize = 1;
+		size = 1;
 	}
 };
 
-int size(NodePtr root) { 
-	return root ? root->lazySize : 0;
+int get_size(NodePtr root) { 
+	return root ? root->size : 0;
 }
 
 void evaluate(NodePtr root) {
 	if (root) {
-		root->lazySize = size(root->left) + size(root->right) + 1;
+		root->size = get_size(root->left) + get_size(root->right) + 1;
 	}
 }
 
 pair<NodePtr, NodePtr> split(NodePtr root, int amount) {
 	if (root == nullptr) return {nullptr, nullptr};
 
-	int take = size(root->left) + 1;
+	int take = get_size(root->left) + 1;
 	if (take <= amount) {
 		auto [left, right] = split(root->right, amount - take);
 		root->right = left;
@@ -85,24 +86,26 @@ void heapify(NodePtr root) {
 }
 
 NodePtr build(const string &v, int from, int to) {
-	  if (from == to) return nullptr;
+	// This function constructs a balanced treap with the chars in the order given by v
+	if (from == to) return nullptr;
 
-	  int mid = (from + to) / 2;
-	  NodePtr root = new Node(v[mid]);
-	  root->left = build(v, from, mid);
-	  root->right = build(v, mid + 1, to);
+	int mid = (from + to) / 2;
+	NodePtr root = new Node(v[mid]);
+	root->left = build(v, from, mid);
+	root->right = build(v, mid + 1, to);
 
-	  heapify(root);
-	  evaluate(root);
-	  return root;
+	heapify(root);
+	evaluate(root);
+	return root;
 }
 
 void toString(NodePtr root, string &s) {
-	  if (root == nullptr) return;
+	// This returs the string formed by the characters of the treap in the order given by the tree
+	if (root == nullptr) return;
 
-	  toString(root->left, s);
-	  s += root->c;
-	  toString(root->right, s);
+	toString(root->left, s);
+	s += root->c;
+	toString(root->right, s);
 }
 
 int main() {
