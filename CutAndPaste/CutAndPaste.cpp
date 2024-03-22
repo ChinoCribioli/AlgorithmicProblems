@@ -105,8 +105,6 @@ void toString(NodePtr root, string &s) {
 	  toString(root->right, s);
 }
 
-// https://cses.fi/problemset/task/2072/
-
 int main() {
 	fastIO();
 	int n, q;
